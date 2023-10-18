@@ -9,13 +9,14 @@ import {
 import { Edit, Save } from '@mui/icons-material';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import CircularProgress from '@mui/material/CircularProgress';
 import IconButton from '@mui/material/IconButton';
 import InputAdornment from '@mui/material/InputAdornment';
 import MUITextField, {
   TextFieldProps as MUITextFieldProps,
 } from '@mui/material/TextField';
 
-import { LoadingContent } from '@/common/components/atoms';
+import { LoadingComponent } from '@/common/components/atoms';
 import useToaster from '@/common/hooks/useToaster';
 
 interface ExtraTextFieldProps {
@@ -137,9 +138,12 @@ export default function TextField({
                 edge="end"
               >
                 {editableState ? (
-                  <LoadingContent size={28} loading={isSaving}>
+                  <LoadingComponent
+                    isLoading={isSaving}
+                    loadingComponent={<CircularProgress size={28} />}
+                  >
                     <Save color="primary" />
-                  </LoadingContent>
+                  </LoadingComponent>
                 ) : (
                   <Edit color="primary" />
                 )}

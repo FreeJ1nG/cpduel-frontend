@@ -1,39 +1,41 @@
-import { Components } from '@mui/material/styles';
+import { Theme } from '@mui/material/styles';
 
-export default function Accordion() {
-  const accordionOverride: Components = {
-    MuiAccordionSummary: {
-      styleOverrides: {
-        root: {
-          paddingLeft: 0,
-          minHeight: '48px !important',
-        },
-        expanded: {
-          margin: 0,
-        },
-        content: {
-          margin: 0,
-          '&.Mui-expanded': {
-            margin: 0,
-          },
-        },
-      },
-    },
+// ----------------------------------------------------------------------
+
+export default function Accordion(theme: Theme) {
+  return {
     MuiAccordion: {
       styleOverrides: {
         root: {
           backgroundColor: 'transparent',
+          '&.Mui-expanded': {
+            boxShadow: theme.customShadows.z8,
+            borderRadius: theme.shape.borderRadius,
+            backgroundColor: theme.palette.background.paper,
+          },
+          '&.Mui-disabled': {
+            backgroundColor: 'transparent',
+          },
         },
       },
     },
-    MuiAccordionDetails: {
+    MuiAccordionSummary: {
       styleOverrides: {
         root: {
-          padding: 0,
+          paddingLeft: theme.spacing(2),
+          paddingRight: theme.spacing(1),
+          '&.Mui-disabled': {
+            opacity: 1,
+            color: theme.palette.action.disabled,
+            '& .MuiTypography-root': {
+              color: 'inherit',
+            },
+          },
+        },
+        expandIconWrapper: {
+          color: 'inherit',
         },
       },
     },
   };
-
-  return accordionOverride;
 }

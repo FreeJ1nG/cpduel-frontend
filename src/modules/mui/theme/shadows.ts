@@ -7,7 +7,11 @@ import palette from './palette';
 
 // ----------------------------------------------------------------------
 
-const themeColor = palette();
+const themeColor = palette('light');
+
+const LIGHT_MODE = themeColor.grey[500];
+
+const DARK_MODE = themeColor.common.black;
 
 function createShadow(color: string): Shadows {
   const transparent1 = alpha(color, 0.2);
@@ -42,6 +46,8 @@ function createShadow(color: string): Shadows {
   ];
 }
 
-export default function shadows() {
-  return createShadow(themeColor.common.black);
+export default function shadows(themeMode: 'light' | 'dark') {
+  return themeMode === 'light'
+    ? createShadow(LIGHT_MODE)
+    : createShadow(DARK_MODE);
 }

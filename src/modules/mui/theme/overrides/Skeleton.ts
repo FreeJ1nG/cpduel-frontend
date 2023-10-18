@@ -1,21 +1,18 @@
-import { Components, Theme } from '@mui/material/styles';
+import { Theme } from '@mui/material/styles';
+
+// ----------------------------------------------------------------------
 
 export default function Skeleton(theme: Theme) {
-  const rootStyle = () => {
-    const colorStyle = {
-      backgroundColor: theme.palette.grey[700],
-    };
-
-    return [colorStyle];
-  };
-
-  const skeletonOverride: Components = {
+  return {
     MuiSkeleton: {
+      defaultProps: {
+        animation: 'wave',
+      },
       styleOverrides: {
-        root: () => rootStyle(),
+        root: {
+          backgroundColor: theme.palette.background.neutral,
+        },
       },
     },
   };
-
-  return skeletonOverride;
 }

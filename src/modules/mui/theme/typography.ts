@@ -1,4 +1,5 @@
 // ----------------------------------------------------------------------
+
 export function remToPx(value: string) {
   return Math.round(parseFloat(value) * 16);
 }
@@ -31,7 +32,7 @@ export function responsiveFontSizes({
 
 // ----------------------------------------------------------------------
 
-const FONT_PRIMARY = 'Inter, sans-serif'; // Google Font
+const FONT_PRIMARY = 'Public Sans, sans-serif'; // Google Font
 // const FONT_SECONDARY = 'CircularStd, sans-serif'; // Local Font
 
 const typography = {
@@ -39,80 +40,63 @@ const typography = {
   fontWeightRegular: 400,
   fontWeightMedium: 600,
   fontWeightBold: 700,
-  hero: {
-    fontWeight: 700,
-    lineHeight: 72 / 48,
-    fontSize: pxToRem(48),
+  h1: {
+    fontWeight: 800,
+    lineHeight: 80 / 64,
+    fontSize: pxToRem(40),
+    ...responsiveFontSizes({ sm: 52, md: 58, lg: 64 }),
   },
-  display: {
-    fontWeight: 700,
-    lineHeight: 48 / 32,
+  h2: {
+    fontWeight: 800,
+    lineHeight: 64 / 48,
     fontSize: pxToRem(32),
+    ...responsiveFontSizes({ sm: 40, md: 44, lg: 48 }),
   },
-  headline: {
+  h3: {
     fontWeight: 700,
-    lineHeight: 36 / 24,
+    lineHeight: 1.5,
     fontSize: pxToRem(24),
+    ...responsiveFontSizes({ sm: 26, md: 30, lg: 32 }),
   },
-  title1: {
+  h4: {
     fontWeight: 700,
-    lineHeight: 30 / 20,
+    lineHeight: 1.5,
     fontSize: pxToRem(20),
+    ...responsiveFontSizes({ sm: 20, md: 24, lg: 24 }),
   },
-  title2: {
+  h5: {
     fontWeight: 700,
-    lineHeight: 24 / 16,
+    lineHeight: 1.5,
+    fontSize: pxToRem(18),
+    ...responsiveFontSizes({ sm: 19, md: 20, lg: 20 }),
+  },
+  h6: {
+    fontWeight: 700,
+    lineHeight: 28 / 18,
+    fontSize: pxToRem(17),
+    ...responsiveFontSizes({ sm: 18, md: 18, lg: 18 }),
+  },
+  subtitle1: {
+    fontWeight: 600,
+    lineHeight: 1.5,
     fontSize: pxToRem(16),
   },
-  title3: {
-    fontWeight: 700,
-    lineHeight: 21 / 14,
+  subtitle2: {
+    fontWeight: 600,
+    lineHeight: 22 / 14,
     fontSize: pxToRem(14),
   },
-  'ui-large': {
-    fontWeight: 400,
-    lineHeight: 30 / 20,
-    fontSize: pxToRem(20),
-  },
-  'ui-baseline': {
-    fontWeight: 400,
-    lineHeight: 24 / 16,
+  body1: {
+    lineHeight: 1.5,
     fontSize: pxToRem(16),
   },
-  'ui-small': {
-    fontWeight: 400,
-    lineHeight: 21 / 14,
+  body2: {
+    lineHeight: 22 / 14,
     fontSize: pxToRem(14),
   },
-  'ui-tiny': {
-    fontWeight: 400,
-    lineHeight: 18 / 12,
+  caption: {
+    lineHeight: 1.5,
     fontSize: pxToRem(12),
-  },
-  'ui-large-medium': {
-    fontWeight: 600,
-    lineHeight: 30 / 20,
-    fontSize: pxToRem(20),
-  },
-  'ui-baseline-medium': {
-    fontWeight: 600,
-    lineHeight: 24 / 16,
-    fontSize: pxToRem(16),
-  },
-  'ui-small-medium': {
-    fontWeight: 600,
-    lineHeight: 21 / 14,
-    fontSize: pxToRem(14),
-  },
-  tiny: {
-    fontWeight: 400,
-    lineHeight: 18 / 12,
-    fontSize: pxToRem(12),
-  },
-  micro: {
-    fontWeight: 400,
-    lineHeight: 16.5 / 11,
-    fontSize: pxToRem(11),
   },
   overline: {
     fontWeight: 700,
@@ -121,10 +105,10 @@ const typography = {
     textTransform: 'uppercase',
   },
   button: {
-    fontWeight: 400,
-    lineHeight: 24 / 16,
-    fontSize: pxToRem(16),
-    textTransform: 'none',
+    fontWeight: 700,
+    lineHeight: 24 / 14,
+    fontSize: pxToRem(14),
+    textTransform: 'capitalize',
   },
 } as const;
 

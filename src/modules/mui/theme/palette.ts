@@ -1,14 +1,30 @@
 import { alpha } from '@mui/material/styles';
 
-export type ColorSchema =
-  | 'default'
-  | 'variant2'
-  | 'variant3'
-  | 'variant4'
-  | 'variant5'
-  | 'variant6';
+// ----------------------------------------------------------------------
 
-const DIVIDER = '#767676';
+export type ColorSchema =
+  | 'primary'
+  | 'secondary'
+  | 'info'
+  | 'success'
+  | 'warning'
+  | 'error';
+
+declare module '@mui/material/styles/createPalette' {
+  interface TypeBackground {
+    neutral: string;
+  }
+  interface SimplePaletteColorOptions {
+    lighter: string;
+    darker: string;
+  }
+  interface PaletteColor {
+    lighter: string;
+    darker: string;
+  }
+}
+
+// SETUP COLORS
 
 const GREY = {
   0: '#FFFFFF',
@@ -23,72 +39,62 @@ const GREY = {
   900: '#161C24',
 };
 
-const CRIMSON_RED = {
-  0: '#FFFFFF',
-  50: '#f7e9e9',
-  100: '#f0d3d4',
-  150: '#e8bcbe',
-  200: '#e0a6a8',
-  250: '#d99093',
-  300: '#d17a7d',
-  350: '#c96467',
-  400: '#c14d51',
-  450: '#ba373c',
-  500: '#b22126',
-  550: '#a01e22',
-  600: '#8e1a1e',
-  650: '#7d171b',
-  700: '#6b1417',
-  750: '#591113',
-  800: '#470d0f',
-  850: '#350a0b',
-  900: '#240708',
-  950: '#120304',
-  1000: '#000000',
-};
-
 const PRIMARY = {
-  light: CRIMSON_RED[450],
-  main: CRIMSON_RED[500],
-  dark: CRIMSON_RED[750],
-  contrastText: '#FFFFFF',
-  shadow: '#591113',
-  infoBox: '#6E1F1E',
-};
-
-const SECONDARY = {
-  light: '#111111',
-  main: '#181818',
-  dark: '#181818',
-  contrastText: '#FFFFFF',
-  shadow: '#591113',
-};
-
-const INFO = {
+  lighter: '#CAFDF5',
   light: '#61F3F3',
   main: '#00B8D9',
   dark: '#006C9C',
-  contrastText: '#FFFFFF',
+  darker: '#003768',
+  contrastText: '#fff',
+};
+
+const SECONDARY = {
+  lighter: '#D6E4FF',
+  light: '#84A9FF',
+  main: '#3366FF',
+  dark: '#1939B7',
+  darker: '#091A7A',
+  contrastText: '#fff',
+};
+
+const INFO = {
+  lighter: '#CAFDF5',
+  light: '#61F3F3',
+  main: '#00B8D9',
+  dark: '#006C9C',
+  darker: '#003768',
+  contrastText: '#fff',
 };
 
 const SUCCESS = {
-  light: '#21B264',
-  main: '#21B264',
-  dark: '#21B264',
-  contrastText: '#FFFFFF',
+  lighter: '#D8FBDE',
+  light: '#86E8AB',
+  main: '#36B37E',
+  dark: '#1B806A',
+  darker: '#0A5554',
+  contrastText: '#fff',
 };
 
 const WARNING = {
+  lighter: '#FFF5CC',
   light: '#FFD666',
   main: '#FFAB00',
   dark: '#B76E00',
+  darker: '#7A4100',
   contrastText: GREY[800],
 };
 
-const ERROR = PRIMARY;
+const ERROR = {
+  lighter: '#FFE9D5',
+  light: '#FFAC82',
+  main: '#FF5630',
+  dark: '#B71D18',
+  darker: '#7A0916',
+  contrastText: '#fff',
+};
 
 const COMMON = {
-  common: { black: '#000000', white: '#FFFFFF' },
+  common: { black: '#000', white: '#fff' },
   primary: PRIMARY,
   secondary: SECONDARY,
   info: INFO,
@@ -96,7 +102,7 @@ const COMMON = {
   warning: WARNING,
   error: ERROR,
   grey: GREY,
-  divider: DIVIDER,
+  divider: alpha(GREY[500], 0.24),
   action: {
     hover: alpha(GREY[500], 0.08),
     selected: alpha(GREY[500], 0.16),
@@ -108,20 +114,40 @@ const COMMON = {
   },
 };
 
-export default function palette() {
-  const colorPalette = {
+export default function palette(themeMode: 'light' | 'dark') {
+  const light = {
     ...COMMON,
+    mode: 'light',
     text: {
-      primary: '#FFFFFF',
+      primary: GREY[800],
+      secondary: GREY[600],
+      disabled: GREY[500],
+    },
+    background: { paper: '#fff', default: '#fff', neutral: GREY[200] },
+    action: {
+      ...COMMON.action,
+      active: GREY[600],
+    },
+  } as const;
+
+  const dark = {
+    ...COMMON,
+    mode: 'dark',
+    text: {
+      primary: '#fff',
       secondary: GREY[500],
       disabled: GREY[600],
     },
     background: {
       paper: GREY[800],
-      default: COMMON.common.black,
+      default: GREY[900],
       neutral: alpha(GREY[500], 0.16),
+    },
+    action: {
+      ...COMMON.action,
+      active: GREY[500],
     },
   } as const;
 
-  return colorPalette;
+  return themeMode === 'light' ? light : dark;
 }

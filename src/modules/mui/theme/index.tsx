@@ -5,6 +5,7 @@ import {
   ThemeProvider as MUIThemeProvider,
 } from '@mui/material/styles';
 
+import { useSettingsContext } from '@/common/contexts/settingsContext/settingContext';
 import customShadows from '@/modules/mui/theme/customShadows';
 import GlobalStyles from '@/modules/mui/theme/globalStyles';
 import componentOverrides from '@/modules/mui/theme/overrides';
@@ -13,14 +14,16 @@ import shadows from '@/modules/mui/theme/shadows';
 import typography from '@/modules/mui/theme/typography';
 
 export default function ThemeProvider({ children }: ChildrenProps) {
+  const { themeMode } = useSettingsContext();
   const themeOptions: ThemeOptions = useMemo(
     () => ({
-      palette: palette(),
-      shadows: shadows(),
-      customShadows: customShadows(),
+      palette: palette(themeMode),
+      shape: { borderRadius: 8 },
+      shadows: shadows(themeMode),
+      customShadows: customShadows(themeMode),
       typography,
     }),
-    [],
+    [themeMode],
   );
 
   const theme = createTheme(themeOptions);

@@ -1,5 +1,7 @@
+// @mui
 import { alpha } from '@mui/material/styles';
 
+//
 import palette from './palette';
 
 // ----------------------------------------------------------------------
@@ -36,7 +38,11 @@ declare module '@mui/material/styles' {
 
 // ----------------------------------------------------------------------
 
-const themeColor = palette();
+const themeColor = palette('light');
+
+const LIGHT_MODE = themeColor.grey[500];
+
+const DARK_MODE = themeColor.common.black;
 
 function createShadow(color: string) {
   const transparent = alpha(color, 0.16);
@@ -49,12 +55,12 @@ function createShadow(color: string) {
     z20: `0 20px 40px -4px ${transparent}`,
     z24: `0 24px 48px 0 ${transparent}`,
     //
-    primary: `0px 2px 8px 0px ${themeColor.primary.shadow}`,
-    info: `0 8px 16px 0 ${alpha(themeColor.info.main, 0.24)}`,
-    secondary: `0px 2px 16px 0px ${themeColor.secondary.shadow}`,
-    success: `0 8px 16px 0 ${alpha(themeColor.success.main, 0.24)}`,
-    warning: `0 8px 16px 0 ${alpha(themeColor.warning.main, 0.24)}`,
-    error: `0 8px 16px 0 ${alpha(themeColor.error.main, 0.24)}`,
+    primary: `0 8px 16px 0 ${alpha(palette('light').primary.main, 0.24)}`,
+    info: `0 8px 16px 0 ${alpha(palette('light').info.main, 0.24)}`,
+    secondary: `0 8px 16px 0 ${alpha(palette('light').secondary.main, 0.24)}`,
+    success: `0 8px 16px 0 ${alpha(palette('light').success.main, 0.24)}`,
+    warning: `0 8px 16px 0 ${alpha(palette('light').warning.main, 0.24)}`,
+    error: `0 8px 16px 0 ${alpha(palette('light').error.main, 0.24)}`,
     //
     card: `0 0 2px 0 ${alpha(color, 0.2)}, 0 12px 24px -4px ${alpha(
       color,
@@ -68,6 +74,8 @@ function createShadow(color: string) {
   };
 }
 
-export default function customShadows() {
-  return createShadow(themeColor.common.black);
+export default function customShadows(themeMode: 'light' | 'dark') {
+  return themeMode === 'light'
+    ? createShadow(LIGHT_MODE)
+    : createShadow(DARK_MODE);
 }
